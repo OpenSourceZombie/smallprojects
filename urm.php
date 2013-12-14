@@ -1,20 +1,25 @@
 <?php
+//initial values
 $registers=array("R1"=>9,"R2"=>4,"R3"=>2,"R4"=>0,"R5"=>0);
-//var_dump($registers);
+//actual commands
 $commands=array("j(R1,R2,5)","s(R2)","s(R3)","j(R1,R2,5)","j(R1,R1,1)","t(R3,R1)");
 $inst = new urmsemu($commands,$registers);
-$inst->execute();
+$inst->execute(); //start executinginistial values
+
+
+
+
+
 class urmsemu
 {
 	private $commands= array();
 	private $registers= array();
-	static 	$instruction_pointer=0;
+	static 	$instruction_pointer=0;//starting from instruction numb 0
 	static  $MAX=100;
 	function __construct($commands,$registers)
 	{
 		$this->commands=$commands;
 		$this->registers=$registers;
-	//	show($this->registers);
 	}
 	
 	function execute()
@@ -48,17 +53,15 @@ class urmsemu
 	}
 }
 
-	function show ($registers)
-	{	
-		foreach($registers as $k=>$v)
-			echo $k."=".$v."  "	;
-		echo "<hr  />";
-	}
-	function normalize ($command)
-	{
-		preg_match('#\((.*?)\)#', $command, $result);
-	//	$result=explode(',',$result[1]);
-	//	print_r($result[1]);
-		return $result[1];
-	}
+function show ($registers) //print array
+{	
+	foreach($registers as $k=>$v)
+		echo $k."=".$v."  "	;
+	echo "<hr  />";
+}
+function normalize ($command)	//return value between ()
+{
+	preg_match('#\((.*?)\)#', $command, $result);
+	return $result[1];
+}
 ?>
